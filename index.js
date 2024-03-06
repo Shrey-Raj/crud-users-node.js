@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 //CRUD Routes
+app.get('/' , userController().homePage) ; 
 app.get('/users', userController().getAllUsers);
 app.get('/users/:id', userController().getUserById);
 app.post('/users', userController().createUser);

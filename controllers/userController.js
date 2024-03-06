@@ -2,6 +2,16 @@ const User = require("../models/userModel");
 
 function routeControllers() {
   return {
+
+    async homePage(req,res){
+        try {
+        res.status(200).json({message : "Welcome to the backend server !"}); 
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({message : error.message}); 
+        }
+    },
+
     async getAllUsers(req, res) {
       try {
         const users = await User.find();
