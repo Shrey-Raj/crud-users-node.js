@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const nodemailer = require('nodemailer');
 const userController = require('./controllers/userController'); 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,6 +21,7 @@ app.get('/users/:id', userController().getUserById);
 app.post('/users', userController().createUser);
 app.put('/users/:id', userController().updateUser);
 app.delete('/users/:id', userController().deleteUser);
+app.post('/sendemail', userController().processUserIdsAndSendEmail);
 
 
 // MongoDB connection

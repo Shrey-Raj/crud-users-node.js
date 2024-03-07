@@ -1,4 +1,6 @@
+require("dotenv").config();
 const User = require("../models/userModel");
+const nodemailer = require('nodemailer'); 
 
 function routeControllers() {
   return {
@@ -87,6 +89,42 @@ function routeControllers() {
         res.status(500).json({ message: "Internal Server Error" });
       }
     },
+
+    async processUserIdsAndSendEmail(req,res) {
+      try {
+
+        const userIds = req.body ; 
+        console.log(userIds); 
+        const users = await User.find({ _id: { $in: userIds } });
+    
+        // console.log("send mail to them : " , users) ; 
+  
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',  
+          auth: {
+            user: process.env.MYMAIL,
+            pass: process.env.APP_PASS,
+          },
+        });
+    
+          const mailOptions = {
+            from: process.env.MYMAIL,
+            to: 'info@redpositive.in',
+            subject: 'User Information',
+            text: `User Information: ${JSON.stringify(users, null, 2)}`,
+          };
+    
+          await transporter.sendMail(mailOptions);
+        
+        console.log('All emails sent successfully');
+        res.status(200).json({message: "Mails sent successfully"}); 
+      } catch (error) {
+        console.error('Error processing user IDs and sending emails:', error);
+        res.status(500).json({message: `Error in sending mails , ${error}`}); 
+      }
+    }
+    
+
   };
 }
 
