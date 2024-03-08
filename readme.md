@@ -9,13 +9,13 @@ This is the backend part of the project, responsible for handling CRUD operation
 
 - /models
     - userModel.js
-- server.js
+- index.js
 
 ### Breakdown
 
 - **controllers:** Contains the logic for handling different CRUD operations.
 - **models:** Defines the MongoDB schema for the User model.
-- **server.js:** Sets up the Express.js server and connects to MongoDB.
+- **index.js:** Sets up the Express.js server and connects to MongoDB.
 
 ## Installation
 
@@ -52,3 +52,4 @@ The server will run on `http://localhost:3001` by default.
 - **POST /api/getUsers:** Create a new user.
 - **PUT /api/getUsers/:id:** Update a user by ID.
 - **DELETE /api/getUsers/:id:** Delete a user by ID.
+- **POST /api/sendemail** Send data of users as an email 
